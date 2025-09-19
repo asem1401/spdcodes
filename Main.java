@@ -1,21 +1,25 @@
 public class Main {
     public static void main(String[] args) {
-        Report salesReport = new Report.Builder()
-                .setTitle("Sales Report - September")
-                .setContent("В сентябре продажи выросли на 20%.")
-                .setAuthor("Асем")
-                .setDate("12.09.2025")
-                .build();
+        System.out.println("=== Factory Method Demo ===");
+        ApparelFactory apparelFactory = new ApparelFactory();
+        AccessoryFactory accessoryFactory = new AccessoryFactory();
 
-        System.out.println(salesReport);
+        Apparel apparel = apparelFactory.createApparel("TShirt");
+        Accessory accessory = accessoryFactory.createAccessory("Sneakers");
 
-        Report financeReport = new Report.Builder()
-                .setTitle("Finance Report - Q3")
-                .setContent("Доход компании увеличился на 15%.")
-                .setAuthor("Жанерке")
-                .setDate("10.09.2025")
-                .build();
+        System.out.println("Ordered (separate factories): " + apparel.getName() + " + " + accessory.getName());
 
-        System.out.println(financeReport);
+        System.out.println("\n=== Abstract Factory Demo ===");
+        OutfitFactory casual = new CasualOutfitFactory();
+        OutfitFactory formal = new FormalOutfitFactory();
+
+        Apparel casualApparel = casual.createApparel();
+        Accessory casualAccessory = casual.createAccessory();
+
+        Apparel formalApparel = formal.createApparel();
+        Accessory formalAccessory = formal.createAccessory();
+
+        System.out.println("Casual outfit (family): " + casualApparel.getName() + " + " + casualAccessory.getName());
+        System.out.println("Formal outfit (family): " + formalApparel.getName() + " + " + formalAccessory.getName());
     }
 }
